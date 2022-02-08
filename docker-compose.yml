@@ -1,0 +1,38 @@
+version: '2'
+services:
+  
+  serveur:
+    build: ./serveur
+    container_name: server
+    networks:
+      - test
+
+  serveur:
+    build: ./serveur
+    container_name: server2
+    networks:
+      - test
+  
+  client1:
+    build: ./client
+    networks:
+      - test
+    depends_on:
+      - serveur
+
+  client2:
+    build: ./client
+    networks:
+      - test
+    depends_on:
+      - serveur
+
+  checker:
+    build: ./checker
+    networks:
+      - test
+    depends_on:
+      - serveur
+
+networks:
+  test:
